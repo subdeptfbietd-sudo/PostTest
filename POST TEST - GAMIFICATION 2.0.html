@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Command Center - Ujian Sertifikasi Arsitek Gamifikasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        /* Neo-Brutalism Custom Utilities */
+        :root {
+            --bg-main: #f0f4f8;
+            --primary: #FF3366; /* Vibrant Pink */
+            --secondary: #00E5FF; /* Cyan */
+            --tertiary: #FFDE00; /* Yellow */
+            --success: #00FF66; /* Neon Green */
+            --dark: #1A1A1A;
+            --border-width: 4px;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--tertiary);
+            color: var(--dark);
+            background-image: radial-gradient(var(--dark) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1, h2, h3, .comic-font {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+
+        .brutal-box {
+            background-color: white;
+            border: var(--border-width) solid var(--dark);
+            box-shadow: 6px 6px 0px 0px var(--dark);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .brutal-btn {
+            background-color: var(--secondary);
+            border: var(--border-width) solid var(--dark);
+            box-shadow: 4px 4px 0px 0px var(--dark);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .brutal-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px var(--dark);
+        }
+
+        .brutal-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px var(--dark);
+        }
+
+        .brutal-btn-primary { background-color: var(--primary); color: white; }
+        .brutal-btn-success { background-color: var(--success); }
+        
+        .brutal-input {
+            border: var(--border-width) solid var(--dark);
+            box-shadow: 4px 4px 0px 0px var(--dark);
+            padding: 0.75rem;
+            width: 100%;
+            font-family: inherit;
+        }
+        .brutal-input:focus {
+            outline: none;
+            background-color: #fff9c4;
+        }
+
+        /* Grid Item States */
+        .grid-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 3px solid var(--dark);
+            box-shadow: 3px 3px 0px 0px var(--dark);
+            cursor: pointer;
+            background-color: white;
+            transition: transform 0.1s;
+        }
+        .grid-item:hover { transform: scale(1.05); }
+        .grid-item.answered { background-color: var(--success); }
+        .grid-item.active { background-color: var(--tertiary); border-color: var(--primary); box-shadow: 3px 3px 0px 0px var(--primary); }
+
+        /* Option Radio States */
+        .option-label {
+            display: block;
+            padding: 1rem;
+            border: 3px solid var(--dark);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            background-color: white;
+            transition: all 0.2s;
+            position: relative;
+            box-shadow: 4px 4px 0px 0px var(--dark);
+        }
+        .option-label:hover { background-color: #f0f0f0; transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px var(--dark); }
+        .option-input:checked + .option-label {
+            background-color: var(--secondary);
+            border-color: var(--dark);
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px var(--dark);
+        }
+        .option-input { display: none; }
+
+        .progress-container {
+            width: 100%;
+            height: 24px;
+            border: 3px solid var(--dark);
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-right: 3px solid var(--dark);
+        }
+        .progress-stripe {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.2) 10px,
+                rgba(255,255,255,0.2) 20px
+            );
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 3px solid var(--dark);
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px 0px var(--dark);
+            background-color: var(--primary);
+            color: white;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hide elements */
+        .hidden { display: none !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--tertiary); border-left: 3px solid var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border: 3px solid var(--dark); }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+
+    <!-- AUDIO CONTROLS -->
+    <div id="audioControls" class="fixed top-4 right-4 z-50 hidden">
+        <button id="btnMute" class="brutal-btn p-2 rounded-full bg-white" onclick="toggleMute()">
+            🔊
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="w-full max-w-6xl mx-auto flex-grow flex flex-col">
+        
+        <!-- SCREEN 1: GATEWAY -->
+        <section id="screenGateway" class="w-full max-w-md mx-auto brutal-box p-8 mt-10">
+            <h1 class="text-4xl text-center mb-2 text-[var(--primary)]" style="-webkit-text-stroke: 1px black;">POST TEST GAMIFICATION 2.0</h1>
+            <h2 class="text-xl text-center mb-6 font-bold uppercase tracking-widest">Login Portal</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block font-bold mb-1">Nama Operator</label>
+                    <input type="text" id="inputName" class="brutal-input" placeholder="Masukkan Nama Anda..." autocomplete="off">
+                </div>
+                <div>
+                    <label class="block font-bold mb-1">Nomor Induk Karyawan (NIK)</label>
+                    <input type="text" id="inputNIK" class="brutal-input" placeholder="Masukkan NIK..." autocomplete="off">
+                </div>
+                <div id="loginError" class="text-red-600 font-bold hidden text-sm">⚠️ Identitas wajib diisi!</div>
+                <button onclick="startGame()" class="brutal-btn brutal-btn-primary w-full py-4 text-xl mt-4">
+                    INITIALIZE SYSTEM
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: MISSION BRIEFING -->
+        <section id="screenBriefing" class="w-full max-w-2xl mx-auto brutal-box p-8 mt-10 hidden">
+            <h1 class="text-4xl mb-4 comic-font text-center">MISSION BRIEFING</h1>
+            <div class="bg-gray-100 p-4 border-2 border-black mb-6">
+                <p class="mb-3">Selamat datang, <span id="playerNameDisplay" class="font-bold text-[var(--primary)]"></span>.</p>
+                <p class="mb-3">Anda telah memasuki <strong>The Command Center</strong>. Misi Anda hari ini adalah menyelesaikan Ujian Sertifikasi Arsitek Gamifikasi.</p>
+                <p class="mb-2 font-bold">📡 RULES OF ENGAGEMENT:</p>
+                <ul class="list-disc list-inside space-y-1 ml-2 mb-4">
+                    <li>Terdapat 20 krisis operasional (soal) yang harus Anda selesaikan.</li>
+                    <li>Pengerjaan hanya bisa dilakukan satu kali, jadi kerjakan dengan bijak dan teliti.</li>
+                    <li>Anda memiliki kendali penuh atas navigasi panel. Lompat, lewati, atau tinjau ulang tugas kapan saja.</li>
+                    <li>Tidak ada bantuan (Hint) eksternal. Keandalan Anda mengandalkan insting dan memori pelatihan.</li>
+                    <li>Indikator Trust/Logic akan dievaluasi setelah misi selesai.</li>
+                </ul>
+                <p class="italic font-bold text-[var(--primary)]">"Are you ready to build the future of learning?"</p>
+            </div>
+            <button onclick="enterCommandCenter()" class="brutal-btn brutal-btn-success w-full py-4 text-2xl comic-font">
+                ACCEPT MISSION & ENGAGE
+            </button>
+        </section>
+
+        <!-- SCREEN 3: COMMAND CENTER (GAMEPLAY) -->
+        <section id="screenGame" class="w-full brutal-box flex flex-col md:flex-row hidden overflow-hidden h-[85vh]">
+            
+            <!-- SIDEBAR GRID -->
+            <div class="w-full md:w-1/4 bg-[var(--tertiary)] border-b-4 md:border-b-0 md:border-r-4 border-black p-4 flex flex-col h-1/3 md:h-full overflow-y-auto">
+                <h2 class="text-2xl comic-font mb-4 text-center">NAV-PANEL</h2>
+                <div class="grid grid-cols-5 md:grid-cols-4 gap-2 mb-4" id="questionGrid">
+                    <!-- Grid items injected by JS -->
+                </div>
+                
+                <button onclick="confirmSubmit()" id="btnSubmitNav" class="brutal-btn brutal-btn-primary w-full py-3 text-lg comic-font mb-4">SUBMIT PROTOCOL</button>
+
+                <div class="mt-auto hidden md:block">
+                    <div class="p-3 bg-white border-2 border-black text-sm">
+                        <span class="inline-block w-3 h-3 bg-[var(--success)] border border-black mr-1"></span> Tereksekusi<br>
+                        <span class="inline-block w-3 h-3 bg-white border border-black mr-1 mt-1"></span> Menunggu
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT AREA -->
+            <div class="w-full md:w-3/4 flex flex-col h-2/3 md:h-full">
+                <!-- Header -->
+                <div class="p-4 border-b-4 border-black bg-white flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-bold">CRITICAL TASK <span id="lblQNum" class="text-[var(--primary)] text-2xl comic-font">#1</span></h2>
+                    </div>
+                    <div class="w-1/2">
+                        <div class="text-xs font-bold mb-1 text-right">SYSTEM COMPLETION</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                            <div class="progress-stripe"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="flex-grow p-4 md:p-8 overflow-y-auto bg-gray-50 relative">
+                    <div id="questionText" class="text-lg md:text-xl font-bold mb-6 leading-relaxed">
+                        <!-- Question injected here -->
+                    </div>
+                    
+                    <div id="optionsContainer" class="space-y-3">
+                        <!-- Options injected here -->
+                    </div>
+                </div>
+
+                <!-- Footer Navigation -->
+                <div class="p-4 border-t-4 border-black bg-white flex justify-between items-center gap-2">
+                    <button onclick="navQuestion(-1)" id="btnPrev" class="brutal-btn px-4 md:px-6 py-2">◀ MUNDUR</button>
+                    <button onclick="navQuestion(1)" id="btnNext" class="brutal-btn px-4 md:px-6 py-2">MAJU ▶</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: POST-ACTION DEBRIEF -->
+        <section id="screenDebrief" class="w-full max-w-4xl mx-auto brutal-box p-4 md:p-8 mt-4 hidden">
+            <h1 class="text-4xl text-center mb-2 comic-font text-[var(--primary)]">POST-ACTION DEBRIEF</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-6">
+                <!-- Score Card -->
+                <div class="bg-[var(--tertiary)] border-4 border-black p-6 text-center box-shadow: 4px 4px 0px 0px var(--dark)">
+                    <h3 class="text-xl font-bold mb-2">TRUST/LOGIC METER</h3>
+                    <div class="text-6xl comic-font mb-2" id="finalScore">0%</div>
+                    <div id="scoreStatus" class="font-bold text-lg px-2 py-1 bg-white border-2 border-black inline-block"></div>
+                    
+                    <!-- Indikator Status Pengiriman ke Google Sheets -->
+                    <div id="syncStatus" class="mt-4 text-sm font-bold bg-white border-2 border-black px-2 py-1 hidden rounded">
+                        📡 Sinkronisasi Data...
+                    </div>
+                </div>
+                
+                <!-- Player Info & Badges -->
+                <div class="bg-white border-4 border-black p-6 flex flex-col justify-center">
+                    <p class="text-lg mb-1">Operator: <strong id="debName"></strong></p>
+                    <p class="text-lg mb-4">ID: <strong id="debNIK"></strong></p>
+                    <div>
+                        <h4 class="font-bold mb-2">ACHIEVEMENTS EARNED:</h4>
+                        <div id="badgesContainer" class="flex flex-wrap gap-2">
+                            <!-- Badges injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button onclick="toggleReview()" id="btnToggleReview" class="brutal-btn w-full py-3 bg-[var(--secondary)]">🔍 TAMPILKAN ANALISIS TAKTIS (REVIEW)</button>
+            </div>
+
+            <!-- Review Container (Hidden by default) -->
+            <div id="reviewContainer" class="hidden space-y-4 max-h-[50vh] overflow-y-auto p-2">
+                <!-- Review Items Injected -->
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="location.reload()" class="brutal-btn py-3 px-8 brutal-btn-primary">REBOOT SYSTEM (MAIN LAGI)</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-8 mb-4 text-center text-sm font-bold w-full p-2">
+        Education & Training Dept. – Workshop Gamification 2.0 &copy; 2026
+    </footer>
+
+    <!-- MODAL CONFIRMATION -->
+    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden p-4">
+        <div class="brutal-box bg-white p-6 max-w-md w-full text-center">
+            <h2 class="text-3xl comic-font text-red-600 mb-4">SYSTEM WARNING</h2>
+            <p id="modalMsg" class="text-lg mb-6 font-bold"></p>
+            <div class="flex justify-center gap-4">
+                <button onclick="closeModal()" class="brutal-btn bg-gray-300 px-6 py-2">KEMBALI</button>
+                <button onclick="executeSubmit()" id="modalBtnSubmit" class="brutal-btn brutal-btn-primary px-6 py-2">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & DATA -->
+    <script>
+        // --- 1. DATA SOAL ---
+        const questionsData = [
+            {
+                q: "Apa fungsi utama dari penggunaan Github dalam pembuatan gamifikasi HTML di workshop ini?",
+                options: [
+                    "A. Sebagai server utama untuk mengeksekusi script pemrograman back-end yang rumit.",
+                    "B. Sebagai 'rak penyimpanan virtual' (Repository & Pages) agar file HTML bisa diakses publik via tautan/link.",
+                    "C. Sebagai database untuk menyimpan skor dan identitas peserta.",
+                    "D. Sebagai Artificial Intelligence yang memproduksi kode HTML."
+                ],
+                answer: 1, // Index 1 is B
+                reason: "Github Pages mengubah repository statis (HTML/CSS/JS) menjadi halaman web yang bisa diakses publik secara gratis tanpa perlu setup server rumit."
+            },
+            {
+                q: "Pada tahap Core Execution dalam merancang gamifikasi, mengapa elemen 'Dynamic Difficulty' dianggap sangat penting?",
+                options: [
+                    "A. Agar ukuran file gamifikasi menjadi lebih kecil saat diunggah.",
+                    "B. Agar grafis permainan dapat berubah dari 2D menjadi 3D.",
+                    "C. Agar permainan dapat menyesuaikan tingkat kesulitan secara otomatis sehingga peserta tidak merasa bosan.",
+                    "D. Agar database Google Sheets tidak kelebihan kapasitas data."
+                ],
+                answer: 2,
+                reason: "Dynamic Difficulty menjaga pemain dalam kondisi 'Flow', tidak terlalu mudah (membosankan) dan tidak terlalu sulit (membuat frustrasi)."
+            },
+            {
+                q: "Saat Anda ingin menghubungkan database gamifikasi dengan Google Sheets, di menu manakah kode Javascript yang dihasilkan oleh AI (Gemini) harus dimasukkan?",
+                options: [
+                    "A. Di-paste langsung ke dalam menu 'Macros'.",
+                    "B. Di dalam pengaturan Github Pages.",
+                    "C. Di-paste ke dalam Google Apps Script (GAS).",
+                    "D. Di dalam sel A1 pada Google Sheets."
+                ],
+                answer: 2,
+                reason: "Google Apps Script (Extensions > Apps Script) berfungsi sebagai jembatan (API) yang menerima data dari Web HTML dan menulisnya ke dalam sel Google Sheets."
+            },
+            {
+                q: "Pada fase Post-Action Debrief (sesi pasca-permainan), pendekatan mana yang terbukti lebih efektif dan membangun bagi peserta?",
+                options: [
+                    "A. Hanya menampilkan skor angka akhir agar peserta langsung tahu apakah mereka lulus atau gagal.",
+                    "B. Memberikan Analisis Taktis (seperti evaluasi kecepatan menjawab dan ketekunan) tanpa nada menghakimi.",
+                    "C. Memberikan hukuman bagi yang mendapat skor terendah di depan peserta lain.",
+                    "D. Mereset otomatis seluruh progres belajar peserta jika melakukan satu kesalahan."
+                ],
+                answer: 1,
+                reason: "Debriefing yang baik fokus pada proses dan area perbaikan (growth mindset), bukan sekadar menghakimi hasil akhir angka."
+            },
+            {
+                q: "Berdasarkan konsep pengembangan efisien, apa dampak paling signifikan dari pemanfaatan AI (seperti Gemini atau Claude) dalam memproduksi logika dan alur game?",
+                options: [
+                    "A. Dapat memangkas estimasi waktu dari 20 jam kerja manual menjadi sekitar 1 jam saja.",
+                    "B. AI akan secara otomatis mempresentasikan hasil game kepada para peserta.",
+                    "C. Menggantikan peran Google Sheets sepenuhnya dalam menampung database.",
+                    "D. Menghilangkan kebutuhan akan koneksi internet saat memainkan gamifikasi."
+                ],
+                answer: 0,
+                reason: "AI Generatif bertindak sebagai co-pilot coding, menghasilkan boiler-plate, logika game, dan struktur UI dalam hitungan detik, memangkas proses dev."
+            },
+            {
+                q: "Dalam merancang sebuah Mission Briefing gamifikasi, apa tujuan utama dari menyematkan elemen 'The Hook'?",
+                options: [
+                    "A. Memberikan tutorial cara menggunakan mouse dan keyboard.",
+                    "B. Membangkitkan rasa penasaran dan memberikan alasan kuat (Why) mengapa peserta harus menyelesaikan simulasi.",
+                    "C. Mengunci permainan agar tidak bisa diakses sebelum jam yang ditentukan.",
+                    "D. Menampilkan logo perusahaan dengan animasi tiga dimensi."
+                ],
+                answer: 1,
+                reason: "'The Hook' adalah pengait emosional/narasi di awal yang menjawab WIIFM (What's In It For Me) bagi peserta."
+            },
+            {
+                q: "Saat melakukan deployment di Google Apps Script (GAS), apa fungsi dari memilih status Eksekusi 'Execute as Me'?",
+                options: [
+                    "A. Mengubah identitas seluruh pemain menjadi nama Anda.",
+                    "B. Mencegah terjadinya error pada animasi HTML.",
+                    "C. Memberikan otorisasi otomatis agar database di Google Sheets dapat ditulisi saat peserta (Anyone) memainkan gamifikasi.",
+                    "D. Mengenkripsi kode Javascript agar tidak bisa dibaca oleh Claude AI."
+                ],
+                answer: 2,
+                reason: "Ini memastikan script memiliki izin untuk menulis ke Google Sheet milik kreator, meskipun yang mengakses script (memainkan game) adalah publik tanpa perlu login Google."
+            },
+            {
+                q: "Apa prasyarat utama pada Github Pages agar repository HTML Anda dapat dipublikasikan menjadi URL (link) aktif yang dapat disematkan ke dalam LMS?",
+                options: [
+                    "A. Status branch harus diubah ke 'Main' (atau root).",
+                    "B. Akun Github harus di-upgrade ke versi berbayar (Pro).",
+                    "C. Mengaktifkan fitur Github Actions secara manual.",
+                    "D. Menyambungkan Github langsung dengan Google Workspace."
+                ],
+                answer: 0,
+                reason: "Github Pages mendeteksi file HTML dari branch utama (biasanya main atau master) dan folder root untuk di-build menjadi website statis."
+            },
+            {
+                q: "Manakah dari pernyataan berikut yang paling tepat mendeskripsikan elemen 'Real-time Feedback' dalam sebuah simulasi?",
+                options: [
+                    "A. Email ringkasan nilai yang dikirimkan HRD setiap akhir bulan.",
+                    "B. Evaluasi tertulis yang diberikan Supervisor seminggu setelah pelatihan.",
+                    "C. Antarmuka interaktif yang langsung menunjukkan indikator progres (seperti XP bertambah/berkurang) segera setelah pemain melakukan aksi.",
+                    "D. Formulir kuesioner (feedback form) yang harus diisi di Google Form setelah training selesai."
+                ],
+                answer: 2,
+                reason: "Feedback real-time memberitahu otak secara instan apakah tindakan yang baru saja dilakukan benar atau salah, memperkuat proses neuroplastisitas."
+            },
+            {
+                q: "Ketika Anda menggunakan Gemini AI, terdapat fitur bernama mode 'Canvas'. Apa fungsi dari fitur tersebut dalam konteks produksi gamifikasi?",
+                options: [
+                    "A. Tempat untuk mengedit gambar dan latar belakang permainan.",
+                    "B. Fitur khusus (workspace) untuk memodifikasi dan melihat code preview secara terstruktur sebelum di-copy menjadi single file HTML.",
+                    "C. Generator musik dan efek suara otomatis untuk background game.",
+                    "D. Mode untuk menghubungkan Gemini langsung dengan Github Repository."
+                ],
+                answer: 1,
+                reason: "Mode Canvas (atau Artifacts di AI lain) memisahkan kode dari chat, memungkinkan preview live rendering HTML/JS langsung di dalam browser AI."
+            },
+            {
+                q: "Jika Anda ingin memacu motivasi peserta secara transparan dengan menciptakan elemen kompetisi dalam pelatihan, komponen gamifikasi apa yang paling tepat digunakan?",
+                options: [
+                    "A. Progress Bar",
+                    "B. Avatar Customization",
+                    "C. Leaderboard (Papan Klasemen)",
+                    "D. Easter Eggs"
+                ],
+                answer: 2,
+                reason: "Leaderboard memicu dorongan psikologis untuk berprestasi dan membandingkan status sosial (kompetisi sehat) antar peserta."
+            },
+            {
+                q: "Dalam arsitektur pembuatan gamifikasi menggunakan Github, istilah 'Repository' dianalogikan sebagai...",
+                options: [
+                    "A. 'Folder' utama tempat penyimpanan seluruh file proyek gamifikasi Anda.",
+                    "B. Bahasa pemrograman pengolah data pengganti SQL.",
+                    "C. Link URL akhir yang diberikan kepada peserta.",
+                    "D. Sistem operasi jaringan internal perusahaan."
+                ],
+                answer: 0,
+                reason: "Repository adalah ruang lingkup kerja (direktori) yang menyimpan semua versi file project Anda di server Github."
+            },
+            {
+                q: "Sebuah kondisi di mana antarmuka sistem tidak kaku dan pemain merasa bahwa setiap keputusan yang mereka ambil benar-benar berdampak pada jalannya simulasi disebut dengan istilah...",
+                options: [
+                    "A. Static UI",
+                    "B. Interactive UI",
+                    "C. Linear Storytelling",
+                    "D. Responsive Error"
+                ],
+                answer: 1,
+                reason: "Interactive UI membuat user merasa memegang kendali (Agency) atas sistem, esensial dalam gamifikasi aktif."
+            },
+            {
+                q: "Saat Anda melakukan commit changes (menyimpan perubahan file) di Github, nama default apa yang mutlak harus digunakan untuk file utama agar Github Pages tidak mengalami error saat membaca halaman Anda?",
+                options: [
+                    "A. main.html",
+                    "B. game-script.html",
+                    "C. index.html",
+                    "D. home.php"
+                ],
+                answer: 2,
+                reason: "Web server secara default mencari file bernama 'index.html' sebagai halaman muka/entry point dari sebuah direktori web."
+            },
+            {
+                q: "Elemen gamifikasi apa yang umumnya diberikan sebagai penanda pencapaian spesifik tertentu (prestasi) saat peserta berhasil berpindah dari satu level aktivitas ke aktivitas lainnya?",
+                options: [
+                    "A. Pinalti Poin",
+                    "B. Badge (Lencana)",
+                    "C. Timeout Warning",
+                    "D. Live Chat"
+                ],
+                answer: 1,
+                reason: "Badges adalah representasi visual dari milestone, berfungsi sebagai status simbol pencapaian."
+            },
+            {
+                q: "(Evaluasi C5) Sebagai Supervisor, Anda menemukan bahwa gamifikasi HTML yang sudah di-upload ke Github tidak mau terbuka (muncul error 404) saat URL-nya diakses via LMS. Berdasarkan proses deployment yang diajarkan, apa langkah evaluasi pertama yang harus Anda cek di repository Github?",
+                options: [
+                    "A. Memeriksa apakah kode Javascript telah ter-deploy dengan status 'Anyone' di Apps Script.",
+                    "B. Memastikan fitur Advanced Security telah dihidupkan.",
+                    "C. Memeriksa apakah nama file utama sudah di-rename persis menjadi 'index.html'.",
+                    "D. Mengulangi proses prompting di Claude AI karena Gemini mungkin menghapus source code aslinya."
+                ],
+                answer: 2,
+                reason: "Error 404 (Not Found) di Github Pages hampir selalu disebabkan oleh ketiadaan file 'index.html' di root direktori."
+            },
+            {
+                q: "(Analisis C4) Anda ingin membuat game simulasi (The Platinum Rule) di mana peserta berperan sebagai SPV yang menangani komplain pelanggan dengan berbagai profil emosi (misal: panik, marah, detail). Mekanik game apa yang direkomendasikan dalam modul untuk melatih refleks kecerdasan emosional ini?",
+                options: [
+                    "A. Connect the Dots untuk menghubungkan SOP perusahaan dengan pasal-pasal hukum.",
+                    "B. Dialog Card / Drag & Drop untuk merangkai respons 'Courtesy Heads-Up' yang paling sesuai dengan tempo lawan bicara.",
+                    "C. Pembuatan teka-teki silang (Crossword) tentang jenis-jenis komplain.",
+                    "D. Papan Leaderboard khusus menghitung siapa yang paling banyak mendapat komplain."
+                ],
+                answer: 1,
+                reason: "Mekanik ini mensimulasikan percakapan nyata (Roleplay), memaksa pemain menganalisis situasi sebelum merespons."
+            },
+            {
+                q: "(Analisis C4) Saat melakukan uji coba database gamifikasi ke Google Sheets, Anda mendapati pesan error pada Execution Log di Google Apps Script dan tabel data tidak terisi. Apa penyebab paling logis dari kegagalan integrasi tersebut?",
+                options: [
+                    "A. Penamaan header di Google Sheets (kolom A, B, C, dst) tidak sama persis (huruf besar/kecilnya) dengan parameter/variabel yang ada di kode Javascript Apps Script.",
+                    "B. Anda tidak menggunakan mode incognito (penyamaran) saat mem-paste Javascript.",
+                    "C. Akun Google yang Anda gunakan untuk GitHub berbeda dengan akun Google Sheets.",
+                    "D. Format HTML Single File tidak mendukung pengiriman data tanpa bantuan server PHP."
+                ],
+                answer: 0,
+                reason: "Mapping data via JSON (key-value pair) bersifat Case Sensitive. Jika keys di script tidak cocok dengan header sheet, data tidak akan terpetakan."
+            },
+            {
+                q: "(Evaluasi C5) Dalam merancang Post-Action Debrief, seorang kreator instruksional hanya memberikan notifikasi berbunyi 'Skor Anda 100 - Lulus'. Mengacu pada konsep Gamifikasi 2.0 yang ideal, mengapa hal ini dianggap belum sempurna dan apa yang harus ditambahkan?",
+                options: [
+                    "A. Karena tidak ada elemen kompetisi; harus ditambahkan Leaderboard wajib untuk semua peserta tanpa terkecuali.",
+                    "B. Karena debrief bukan sekadar garis finish; harus ada Analisis Taktis (evaluasi kecepatan/akurasi) dan ajakan (Call to action) untuk mengulang siklus perbaikan.",
+                    "C. Karena kurang meriah; wajib ditambahkan video dan musik selebrasi di akhir sesi.",
+                    "D. Karena tidak sah jika tidak ada fitur tanda tangan digital (e-sign) dari manajer ETD."
+                ],
+                answer: 1,
+                reason: "Debrief yang baik harus actionable. Pemain perlu tahu mengapa mereka menang/kalah dan apa yang harus dilakukan selanjutnya (Call to action)."
+            },
+            {
+                q: "(Aplikasi C3) Anda telah memproduksi script HTML menggunakan Gemini AI. Namun, saat diuji coba melalui menu 'Preview', Background Music (BGM) tidak menyala. Sesuai dengan modul QC Hasil Gamifikasi, apa langkah troubleshooting paling tepat yang harus Anda lakukan tanpa harus bisa coding manual?",
+                options: [
+                    "A. Mengonversi audio menjadi format MP4 dan menyematkannya di Github.",
+                    "B. Menghapus Github dan membuat repository baru dari awal.",
+                    "C. Langsung memberikan instruksi perbaikan (chat ulang keluhan tersebut) kepada Gemini di prompt yang sama, atau beralih menggunakan Claude AI sebagai cadangan generator.",
+                    "D. Menambahkan script <bgsound> di awal baris kode menggunakan aplikasi Notepad secara manual."
+                ],
+                answer: 2,
+                reason: "Kemampuan Iterative Prompting adalah skill krusial. Jika kode AI gagal, cara tercepat adalah memberikan pesan error kembali ke AI tersebut di thread yang sama."
+            }
+        ];
+
+        // --- 2. GAME STATE ---
+        let player = { name: "", nik: "" };
+        let currentQ = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        
+        // --- 3. WEB AUDIO API SYNTHESIZER ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let isMuted = false;
+
+        function initAudio() {
+            if(audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            document.getElementById('audioControls').classList.remove('hidden');
+        }
+
+        function playTone(freq, type, duration, vol=0.1) {
+            if (isMuted) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playSFX(type) {
+            if (isMuted) return;
+            if(type === 'click') playTone(600, 'sine', 0.1, 0.05);
+            if(type === 'select') playTone(800, 'square', 0.1, 0.05);
+            if(type === 'submit') {
+                playTone(400, 'square', 0.1, 0.1);
+                setTimeout(() => playTone(600, 'square', 0.2, 0.1), 100);
+            }
+            if(type === 'success') {
+                playTone(523.25, 'triangle', 0.1); // C5
+                setTimeout(() => playTone(659.25, 'triangle', 0.1), 100); // E5
+                setTimeout(() => playTone(783.99, 'triangle', 0.3), 200); // G5
+            }
+            if(type === 'error') {
+                playTone(200, 'sawtooth', 0.3, 0.1);
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('btnMute');
+            if (isMuted) {
+                btn.innerHTML = '🔇';
+            } else {
+                btn.innerHTML = '🔊';
+            }
+            playSFX('click');
+        }
+
+        // --- 4. GAME LOGIC ---
+
+        function switchScreen(hideId, showId) {
+            document.getElementById(hideId).classList.add('hidden');
+            document.getElementById(showId).classList.remove('hidden');
+        }
+
+        function startGame() {
+            const name = document.getElementById('inputName').value.trim();
+            const nik = document.getElementById('inputNIK').value.trim();
+            
+            if(!name || !nik) {
+                document.getElementById('loginError').classList.remove('hidden');
+                playSFX('error');
+                return;
+            }
+            
+            player.name = name;
+            player.nik = nik;
+            document.getElementById('playerNameDisplay').innerText = name.toUpperCase();
+            
+            playSFX('success');
+            initAudio(); // Start audio context on user interaction
+            switchScreen('screenGateway', 'screenBriefing');
+        }
+
+        function enterCommandCenter() {
+            playSFX('submit');
+            switchScreen('screenBriefing', 'screenGame');
+            initGrid();
+            loadQuestion(0);
+            updateProgress();
+        }
+
+        function initGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            for(let i = 0; i < questionsData.length; i++) {
+                const div = document.createElement('div');
+                div.className = 'grid-item text-xl comic-font';
+                div.innerText = i + 1;
+                div.id = `grid-${i}`;
+                div.onclick = () => {
+                    playSFX('click');
+                    loadQuestion(i);
+                };
+                grid.appendChild(div);
+            }
+        }
+
+        function updateGridColors() {
+            for(let i=0; i<questionsData.length; i++) {
+                const el = document.getElementById(`grid-${i}`);
+                el.classList.remove('active', 'answered');
+                if(i === currentQ) {
+                    el.classList.add('active');
+                } else if(userAnswers[i] !== null) {
+                    el.classList.add('answered');
+                }
+            }
+        }
+
+        function loadQuestion(index) {
+            currentQ = index;
+            const qData = questionsData[index];
+            
+            document.getElementById('lblQNum').innerText = `#${index + 1}`;
+            document.getElementById('questionText').innerText = qData.q;
+            
+            const optContainer = document.getElementById('optionsContainer');
+            optContainer.innerHTML = '';
+            
+            qData.options.forEach((optText, i) => {
+                const wrapper = document.createElement('div');
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'qOption';
+                input.id = `opt-${i}`;
+                input.value = i;
+                input.className = 'option-input';
+                if(userAnswers[index] === i) input.checked = true;
+                
+                input.onchange = () => {
+                    playSFX('select');
+                    userAnswers[currentQ] = i;
+                    updateGridColors();
+                    updateProgress();
+                    checkSubmitButton();
+                };
+
+                const label = document.createElement('label');
+                label.htmlFor = `opt-${i}`;
+                label.className = 'option-label font-bold text-sm md:text-base';
+                label.innerText = optText;
+
+                wrapper.appendChild(input);
+                wrapper.appendChild(label);
+                optContainer.appendChild(wrapper);
+            });
+
+            // Button states
+            document.getElementById('btnPrev').disabled = (index === 0);
+            document.getElementById('btnPrev').style.opacity = (index === 0) ? '0.5' : '1';
+            
+            const btnNext = document.getElementById('btnNext');
+            
+            if (index === questionsData.length - 1) {
+                btnNext.disabled = true;
+                btnNext.style.opacity = '0.5';
+            } else {
+                btnNext.disabled = false;
+                btnNext.style.opacity = '1';
+            }
+
+            updateGridColors();
+            checkSubmitButton();
+        }
+
+        function navQuestion(dir) {
+            playSFX('click');
+            let newQ = currentQ + dir;
+            if(newQ >= 0 && newQ < questionsData.length) {
+                loadQuestion(newQ);
+            }
+        }
+
+        function updateProgress() {
+            let answered = userAnswers.filter(a => a !== null).length;
+            let pct = (answered / questionsData.length) * 100;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+        }
+
+        function checkSubmitButton() {
+            const btnSubmit = document.getElementById('btnSubmitNav');
+            // If all answered, pulse the submit button
+            if(userAnswers.filter(a => a === null).length === 0) {
+                btnSubmit.classList.add('animate-pulse');
+            } else {
+                btnSubmit.classList.remove('animate-pulse');
+            }
+        }
+
+        // --- 5. SUBMISSION & DEBRIEF ---
+
+        function confirmSubmit() {
+            playSFX('click');
+            const unanswered = userAnswers.filter(a => a === null).length;
+            const msgEl = document.getElementById('modalMsg');
+            const submitBtn = document.getElementById('modalBtnSubmit');
+            
+            if(unanswered > 0) {
+                msgEl.innerHTML = `Peringatan: Terdapat <span class="text-red-600 font-extrabold text-2xl">${unanswered}</span> soal yang belum terjawab!<br><br>Anda wajib mengisi semua soal sebelum melakukan submit.`;
+                submitBtn.classList.add('hidden'); // Sembunyikan tombol submit agar tidak bisa diklik
+            } else {
+                msgEl.innerText = "Semua protokol telah diisi. Apakah Anda yakin ingin meng-submit data?";
+                submitBtn.classList.remove('hidden'); // Tampilkan tombol submit
+            }
+            document.getElementById('submitModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            playSFX('click');
+            document.getElementById('submitModal').classList.add('hidden');
+        }
+
+        function executeSubmit() {
+            playSFX('submit');
+            closeModal();
+            generateDebrief();
+            switchScreen('screenGame', 'screenDebrief');
+        }
+
+        function generateDebrief() {
+            let correctCount = 0;
+            const reviewContainer = document.getElementById('reviewContainer');
+            reviewContainer.innerHTML = ''; // clear
+
+            questionsData.forEach((q, i) => {
+                const userAns = userAnswers[i];
+                const isCorrect = userAns === q.answer;
+                if(isCorrect) correctCount++;
+
+                // Build Review Item
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = `p-4 border-2 border-black ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`;
+                
+                reviewDiv.innerHTML = `
+                    <p class="font-bold mb-2">Q${i+1}: ${q.q}</p>
+                    <p class="text-sm mb-1">
+                        <span class="font-bold">Jawaban Anda:</span> 
+                        ${userAns !== null ? q.options[userAns] : '<i class="text-gray-500">Tidak Menjawab</i>'} 
+                        ${isCorrect ? '✅' : '❌'}
+                    </p>
+                    ${!isCorrect ? `<p class="text-sm font-bold text-green-700 mb-2">Kunci: ${q.options[q.answer]}</p>` : ''}
+                    <div class="mt-2 p-2 bg-white border border-black text-sm italic">
+                        <strong>Analisis Taktis:</strong> ${q.reason}
+                    </div>
+                `;
+                reviewContainer.appendChild(reviewDiv);
+            });
+
+            const percentage = Math.round((correctCount / questionsData.length) * 100);
+            
+            // UI Updates
+            document.getElementById('debName').innerText = player.name;
+            document.getElementById('debNIK').innerText = player.nik;
+            
+            const scoreEl = document.getElementById('finalScore');
+            scoreEl.innerText = `${percentage}%`;
+            
+            const statusEl = document.getElementById('scoreStatus');
+            const badgesContainer = document.getElementById('badgesContainer');
+            badgesContainer.innerHTML = '';
+
+            // Generate Badges & Status Data
+            let badgeArray = ["Mission Completed"];
+            let missionStatusText = "";
+            let statusEvaluasi = "";
+            
+            badgesContainer.innerHTML += `<div class="badge bg-gray-600">🛠️ Mission Completed</div>`;
+
+            if(percentage >= 80) {
+                missionStatusText = "MISSION SUCCESS - EXCELLENT LOGIC";
+                statusEvaluasi = "Lulus (Master)";
+                badgeArray.push("Master Architect", "AI Synergist");
+                
+                statusEl.innerText = missionStatusText;
+                statusEl.className = "font-bold text-lg px-2 py-1 bg-green-300 border-2 border-black inline-block";
+                scoreEl.style.color = "var(--success)";
+                badgesContainer.innerHTML += `<div class="badge bg-[var(--primary)]" style="animation-delay: 0.2s">🏆 Master Architect</div>`;
+                badgesContainer.innerHTML += `<div class="badge bg-[var(--tertiary)] text-black" style="animation-delay: 0.4s">💡 AI Synergist</div>`;
+                setTimeout(() => playSFX('success'), 500);
+            } else if (percentage >= 50) {
+                missionStatusText = "MISSION ACCOMPLISHED - NEEDS CALIBRATION";
+                statusEvaluasi = "Lulus (Perlu Peningkatan)";
+                badgeArray.push("UX Specialist");
+
+                statusEl.innerText = missionStatusText;
+                statusEl.className = "font-bold text-lg px-2 py-1 bg-yellow-300 border-2 border-black inline-block";
+                scoreEl.style.color = "#FF9900";
+                badgesContainer.innerHTML += `<div class="badge bg-blue-500" style="animation-delay: 0.2s">🏅 UX Specialist</div>`;
+            } else {
+                missionStatusText = "MISSION FAILED - LOGIC COMPROMISED";
+                statusEvaluasi = "Remedial";
+                badgeArray.push("Novice Builder");
+
+                statusEl.innerText = missionStatusText;
+                statusEl.className = "font-bold text-lg px-2 py-1 bg-red-300 border-2 border-black inline-block";
+                scoreEl.style.color = "red";
+                badgesContainer.innerHTML += `<div class="badge bg-gray-500" style="animation-delay: 0.2s">🔰 Novice Builder</div>`;
+                setTimeout(() => playSFX('error'), 500);
+            }
+
+            // --- EKSEKUSI TRIGGER GOOGLE SHEETS API ---
+            // Saat generate debrief dipanggil, artinya game sudah tamat. Data payload siap dikirim.
+            const payloadData = {
+                Timestamp: new Date().toLocaleString('id-ID'), // Format Waktu Lokal
+                Operator_Name: player.name,
+                Operator_NIK: player.nik,
+                Score_Percentage: percentage,
+                Correct_Answers: correctCount,
+                Mission_Status: missionStatusText,
+                Earned_Badges: badgeArray.join(", "),
+                Status_Evaluasi: statusEvaluasi,
+                Interaction_Log: JSON.stringify(userAnswers) // Convert array ke string agar aman di Google Sheets
+            };
+
+            sendGameDataToGoogleSheets(payloadData);
+        }
+
+        function toggleReview() {
+            playSFX('click');
+            const container = document.getElementById('reviewContainer');
+            if(container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                document.getElementById('btnToggleReview').innerText = "TUTUP ANALISIS TAKTIS";
+            } else {
+                container.classList.add('hidden');
+                document.getElementById('btnToggleReview').innerText = "🔍 TAMPILKAN ANALISIS TAKTIS (REVIEW)";
+            }
+        }
+
+        // --- 6. GOOGLE SHEETS INTEGRATION (API CALL) ---
+        /**
+         * Fungsi modular untuk mengirimkan data performa pemain ke Google Apps Script (GAS) Web App.
+         * Dipicu (triggered) di dalam fungsi `generateDebrief()` saat game telah selesai dikerjakan.
+         * @param {Object} playerData - Objek data yang strukturnya harus 100% cocok dengan backend GAS.
+         */
+        async function sendGameDataToGoogleSheets(playerData) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycby2zhwinpE8C9CCO34OKc0zfyGr-p21ll9AkUwwOcDe_wAemifrWOkLOMmytjGJZrhv/exec';
+            const syncStatusEl = document.getElementById('syncStatus');
+            
+            try {
+                console.log("Memulai transmisi data ke Command Center (Google Sheets)...");
+                
+                // Tampilkan indikator UI bahwa data sedang dikirim
+                syncStatusEl.classList.remove('hidden');
+                syncStatusEl.classList.add('bg-yellow-200');
+                syncStatusEl.innerHTML = '📡 Menghubungkan ke Satelit (Menyimpan Data)...';
+
+                // Eksekusi Fetch
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        // Crucial: Penggunaan text/plain mencegah terjadinya request Preflight OPTIONS
+                        // yang seringkali diblokir oleh Google Apps Script.
+                        'Content-Type': 'text/plain;charset=utf-8', 
+                    },
+                    body: JSON.stringify(playerData) // Konversi Object ke string JSON
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json(); 
+                console.log("Transmisi Berhasil:", result);
+                
+                // Update UI Indikator Sukses
+                syncStatusEl.classList.remove('bg-yellow-200');
+                syncStatusEl.classList.add('bg-green-300');
+                syncStatusEl.innerHTML = '✅ Data Berhasil Disimpan ke Database!';
+
+            } catch (error) {
+                console.error("Transmisi Gagal:", error);
+                
+                // Update UI Indikator Error
+                syncStatusEl.classList.remove('bg-yellow-200');
+                syncStatusEl.classList.add('bg-red-300', 'text-white');
+                syncStatusEl.innerHTML = '❌ Gagal Menyimpan Data. Periksa koneksi internet Anda.';
+            }
+        }
+
+        // Prevent enter key submission on inputs
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if(this.id === 'inputNIK') startGame();
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
