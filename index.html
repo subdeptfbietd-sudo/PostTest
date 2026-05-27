@@ -339,227 +339,227 @@
 
     <!-- JAVASCRIPT LOGIC & DATA -->
     <script>
-        // --- 1. DATA SOAL ---
+        // --- 1. DATA SOAL C1-C3 BARU ---
         const questionsData = [
             {
-                q: "Apa fungsi utama dari penggunaan Github dalam pembuatan gamifikasi HTML di workshop ini?",
+                q: "(C1) Platform apa yang kita gunakan sebagai tempat menyimpan file HTML agar bisa diakses secara publik (online)?",
                 options: [
-                    "A. Sebagai server utama untuk mengeksekusi script pemrograman back-end yang rumit.",
-                    "B. Sebagai 'rak penyimpanan virtual' (Repository & Pages) agar file HTML bisa diakses publik via tautan/link.",
-                    "C. Sebagai database untuk menyimpan skor dan identitas peserta.",
-                    "D. Sebagai Artificial Intelligence yang memproduksi kode HTML."
+                    "A. Google Drive",
+                    "B. Github",
+                    "C. Microsoft Word",
+                    "D. Adobe Photoshop"
                 ],
-                answer: 1, // Index 1 is B
-                reason: "Github Pages mengubah repository statis (HTML/CSS/JS) menjadi halaman web yang bisa diakses publik secara gratis tanpa perlu setup server rumit."
+                answer: 1, // B
+                reason: "Github berfungsi sebagai 'repository' (gudang penyimpanan) online untuk file-file kode seperti HTML, CSS, dan Javascript."
             },
             {
-                q: "Pada tahap Core Execution dalam merancang gamifikasi, mengapa elemen 'Dynamic Difficulty' dianggap sangat penting?",
+                q: "(C1) Dalam pembuatan gamifikasi HTML di kelas ini, kita menggunakan AI generatif untuk membantu menulis kode. AI buatan Google yang disebutkan adalah...",
                 options: [
-                    "A. Agar ukuran file gamifikasi menjadi lebih kecil saat diunggah.",
-                    "B. Agar grafis permainan dapat berubah dari 2D menjadi 3D.",
-                    "C. Agar permainan dapat menyesuaikan tingkat kesulitan secara otomatis sehingga peserta tidak merasa bosan.",
-                    "D. Agar database Google Sheets tidak kelebihan kapasitas data."
+                    "A. Gemini",
+                    "B. Google Maps",
+                    "C. Spotify",
+                    "D. Netflix"
                 ],
-                answer: 2,
-                reason: "Dynamic Difficulty menjaga pemain dalam kondisi 'Flow', tidak terlalu mudah (membosankan) dan tidak terlalu sulit (membuat frustrasi)."
+                answer: 0, // A
+                reason: "Gemini (dan Claude) digunakan sebagai asisten AI (co-pilot) untuk mempercepat penulisan kode HTML gamifikasi."
             },
             {
-                q: "Saat Anda ingin menghubungkan database gamifikasi dengan Google Sheets, di menu manakah kode Javascript yang dihasilkan oleh AI (Gemini) harus dimasukkan?",
+                q: "(C2) Mengapa fitur 'Dynamic Difficulty' penting dipikirkan dalam sebuah alur gamifikasi?",
                 options: [
-                    "A. Di-paste langsung ke dalam menu 'Macros'.",
-                    "B. Di dalam pengaturan Github Pages.",
-                    "C. Di-paste ke dalam Google Apps Script (GAS).",
-                    "D. Di dalam sel A1 pada Google Sheets."
+                    "A. Agar warna tombol bisa berubah menjadi lebih gelap.",
+                    "B. Agar peserta harus membayar lebih mahal.",
+                    "C. Untuk menyesuaikan kesulitan sehingga pemain tidak cepat bosan atau frustrasi.",
+                    "D. Untuk memperbesar ukuran file saat didownload."
                 ],
-                answer: 2,
-                reason: "Google Apps Script (Extensions > Apps Script) berfungsi sebagai jembatan (API) yang menerima data dari Web HTML dan menulisnya ke dalam sel Google Sheets."
+                answer: 2, // C
+                reason: "Kesulitan yang dinamis menjaga pemain tetap berada di zona 'Flow' (fokus penuh), tidak terlalu gampang dan tidak terlalu susah."
             },
             {
-                q: "Pada fase Post-Action Debrief (sesi pasca-permainan), pendekatan mana yang terbukti lebih efektif dan membangun bagi peserta?",
+                q: "(C1) Layanan Google apa yang digunakan untuk menampung database skor pemain pada sistem ini?",
                 options: [
-                    "A. Hanya menampilkan skor angka akhir agar peserta langsung tahu apakah mereka lulus atau gagal.",
-                    "B. Memberikan Analisis Taktis (seperti evaluasi kecepatan menjawab dan ketekunan) tanpa nada menghakimi.",
-                    "C. Memberikan hukuman bagi yang mendapat skor terendah di depan peserta lain.",
-                    "D. Mereset otomatis seluruh progres belajar peserta jika melakukan satu kesalahan."
+                    "A. Google Docs",
+                    "B. Google Slides",
+                    "C. Google Meet",
+                    "D. Google Sheets"
                 ],
-                answer: 1,
-                reason: "Debriefing yang baik fokus pada proses dan area perbaikan (growth mindset), bukan sekadar menghakimi hasil akhir angka."
+                answer: 3, // D
+                reason: "Google Sheets digunakan sebagai database yang praktis dan gratis untuk menyimpan hasil pengerjaan peserta secara real-time."
             },
             {
-                q: "Berdasarkan konsep pengembangan efisien, apa dampak paling signifikan dari pemanfaatan AI (seperti Gemini atau Claude) dalam memproduksi logika dan alur game?",
+                q: "(C1) Menu apa pada Google Sheets yang digunakan untuk menempel (paste) kode Javascript penghubung dari AI?",
                 options: [
-                    "A. Dapat memangkas estimasi waktu dari 20 jam kerja manual menjadi sekitar 1 jam saja.",
-                    "B. AI akan secara otomatis mempresentasikan hasil game kepada para peserta.",
-                    "C. Menggantikan peran Google Sheets sepenuhnya dalam menampung database.",
-                    "D. Menghilangkan kebutuhan akan koneksi internet saat memainkan gamifikasi."
+                    "A. Format > Conditional Formatting",
+                    "B. Extensions > Apps Script",
+                    "C. Insert > Image",
+                    "D. View > Freeze"
                 ],
-                answer: 0,
-                reason: "AI Generatif bertindak sebagai co-pilot coding, menghasilkan boiler-plate, logika game, dan struktur UI dalam hitungan detik, memangkas proses dev."
+                answer: 1, // B
+                reason: "Google Apps Script (GAS) adalah tempat kita menaruh script agar Google Sheets bisa menerima data dari website HTML."
             },
             {
-                q: "Dalam merancang sebuah Mission Briefing gamifikasi, apa tujuan utama dari menyematkan elemen 'The Hook'?",
+                q: "(C2) Apa tujuan utama dari sesi 'Post-Action Debrief' di akhir permainan?",
                 options: [
-                    "A. Memberikan tutorial cara menggunakan mouse dan keyboard.",
-                    "B. Membangkitkan rasa penasaran dan memberikan alasan kuat (Why) mengapa peserta harus menyelesaikan simulasi.",
-                    "C. Mengunci permainan agar tidak bisa diakses sebelum jam yang ditentukan.",
-                    "D. Menampilkan logo perusahaan dengan animasi tiga dimensi."
+                    "A. Memberikan umpan balik (feedback) dan evaluasi yang membangun terkait tindakan pemain.",
+                    "B. Hanya untuk menghukum peserta yang nilainya paling rendah.",
+                    "C. Memberikan hadiah uang tunai langsung kepada pemenang.",
+                    "D. Mengakhiri acara secepat mungkin agar peserta bisa istirahat."
                 ],
-                answer: 1,
-                reason: "'The Hook' adalah pengait emosional/narasi di awal yang menjawab WIIFM (What's In It For Me) bagi peserta."
+                answer: 0, // A
+                reason: "Debriefing berfungsi untuk memastikan pembelajaran terjadi melalui diskusi tentang apa yang berhasil dan apa yang perlu diperbaiki."
             },
             {
-                q: "Saat melakukan deployment di Google Apps Script (GAS), apa fungsi dari memilih status Eksekusi 'Execute as Me'?",
+                q: "(C1) Nama file utama yang wajib digunakan saat menyimpan (commit) di Github agar web bisa langsung terbaca adalah...",
                 options: [
-                    "A. Mengubah identitas seluruh pemain menjadi nama Anda.",
-                    "B. Mencegah terjadinya error pada animasi HTML.",
-                    "C. Memberikan otorisasi otomatis agar database di Google Sheets dapat ditulisi saat peserta (Anyone) memainkan gamifikasi.",
-                    "D. Mengenkripsi kode Javascript agar tidak bisa dibaca oleh Claude AI."
+                    "A. index.html",
+                    "B. main.php",
+                    "C. script.js",
+                    "D. style.css"
                 ],
-                answer: 2,
-                reason: "Ini memastikan script memiliki izin untuk menulis ke Google Sheet milik kreator, meskipun yang mengakses script (memainkan game) adalah publik tanpa perlu login Google."
+                answer: 0, // A
+                reason: "Server web akan selalu mencari file bernama 'index.html' sebagai halaman muka (beranda) dari suatu tautan web."
             },
             {
-                q: "Apa prasyarat utama pada Github Pages agar repository HTML Anda dapat dipublikasikan menjadi URL (link) aktif yang dapat disematkan ke dalam LMS?",
-                options: [
-                    "A. Status branch harus diubah ke 'Main' (atau root).",
-                    "B. Akun Github harus di-upgrade ke versi berbayar (Pro).",
-                    "C. Mengaktifkan fitur Github Actions secara manual.",
-                    "D. Menyambungkan Github langsung dengan Google Workspace."
-                ],
-                answer: 0,
-                reason: "Github Pages mendeteksi file HTML dari branch utama (biasanya main atau master) dan folder root untuk di-build menjadi website statis."
-            },
-            {
-                q: "Manakah dari pernyataan berikut yang paling tepat mendeskripsikan elemen 'Real-time Feedback' dalam sebuah simulasi?",
-                options: [
-                    "A. Email ringkasan nilai yang dikirimkan HRD setiap akhir bulan.",
-                    "B. Evaluasi tertulis yang diberikan Supervisor seminggu setelah pelatihan.",
-                    "C. Antarmuka interaktif yang langsung menunjukkan indikator progres (seperti XP bertambah/berkurang) segera setelah pemain melakukan aksi.",
-                    "D. Formulir kuesioner (feedback form) yang harus diisi di Google Form setelah training selesai."
-                ],
-                answer: 2,
-                reason: "Feedback real-time memberitahu otak secara instan apakah tindakan yang baru saja dilakukan benar atau salah, memperkuat proses neuroplastisitas."
-            },
-            {
-                q: "Ketika Anda menggunakan Gemini AI, terdapat fitur bernama mode 'Canvas'. Apa fungsi dari fitur tersebut dalam konteks produksi gamifikasi?",
-                options: [
-                    "A. Tempat untuk mengedit gambar dan latar belakang permainan.",
-                    "B. Fitur khusus (workspace) untuk memodifikasi dan melihat code preview secara terstruktur sebelum di-copy menjadi single file HTML.",
-                    "C. Generator musik dan efek suara otomatis untuk background game.",
-                    "D. Mode untuk menghubungkan Gemini langsung dengan Github Repository."
-                ],
-                answer: 1,
-                reason: "Mode Canvas (atau Artifacts di AI lain) memisahkan kode dari chat, memungkinkan preview live rendering HTML/JS langsung di dalam browser AI."
-            },
-            {
-                q: "Jika Anda ingin memacu motivasi peserta secara transparan dengan menciptakan elemen kompetisi dalam pelatihan, komponen gamifikasi apa yang paling tepat digunakan?",
+                q: "(C3) Jika Anda ingin menampilkan peringkat skor peserta dari tertinggi ke terendah, elemen gamifikasi apa yang cocok digunakan?",
                 options: [
                     "A. Progress Bar",
-                    "B. Avatar Customization",
-                    "C. Leaderboard (Papan Klasemen)",
-                    "D. Easter Eggs"
-                ],
-                answer: 2,
-                reason: "Leaderboard memicu dorongan psikologis untuk berprestasi dan membandingkan status sosial (kompetisi sehat) antar peserta."
-            },
-            {
-                q: "Dalam arsitektur pembuatan gamifikasi menggunakan Github, istilah 'Repository' dianalogikan sebagai...",
-                options: [
-                    "A. 'Folder' utama tempat penyimpanan seluruh file proyek gamifikasi Anda.",
-                    "B. Bahasa pemrograman pengolah data pengganti SQL.",
-                    "C. Link URL akhir yang diberikan kepada peserta.",
-                    "D. Sistem operasi jaringan internal perusahaan."
-                ],
-                answer: 0,
-                reason: "Repository adalah ruang lingkup kerja (direktori) yang menyimpan semua versi file project Anda di server Github."
-            },
-            {
-                q: "Sebuah kondisi di mana antarmuka sistem tidak kaku dan pemain merasa bahwa setiap keputusan yang mereka ambil benar-benar berdampak pada jalannya simulasi disebut dengan istilah...",
-                options: [
-                    "A. Static UI",
-                    "B. Interactive UI",
-                    "C. Linear Storytelling",
-                    "D. Responsive Error"
-                ],
-                answer: 1,
-                reason: "Interactive UI membuat user merasa memegang kendali (Agency) atas sistem, esensial dalam gamifikasi aktif."
-            },
-            {
-                q: "Saat Anda melakukan commit changes (menyimpan perubahan file) di Github, nama default apa yang mutlak harus digunakan untuk file utama agar Github Pages tidak mengalami error saat membaca halaman Anda?",
-                options: [
-                    "A. main.html",
-                    "B. game-script.html",
-                    "C. index.html",
-                    "D. home.php"
-                ],
-                answer: 2,
-                reason: "Web server secara default mencari file bernama 'index.html' sebagai halaman muka/entry point dari sebuah direktori web."
-            },
-            {
-                q: "Elemen gamifikasi apa yang umumnya diberikan sebagai penanda pencapaian spesifik tertentu (prestasi) saat peserta berhasil berpindah dari satu level aktivitas ke aktivitas lainnya?",
-                options: [
-                    "A. Pinalti Poin",
                     "B. Badge (Lencana)",
-                    "C. Timeout Warning",
-                    "D. Live Chat"
+                    "C. Avatar Customization",
+                    "D. Leaderboard (Papan Klasemen)"
                 ],
-                answer: 1,
-                reason: "Badges adalah representasi visual dari milestone, berfungsi sebagai status simbol pencapaian."
+                answer: 3, // D
+                reason: "Leaderboard adalah papan peringkat yang efektif untuk memicu rasa kompetisi sehat antar peserta."
             },
             {
-                q: "(Evaluasi C5) Sebagai Supervisor, Anda menemukan bahwa gamifikasi HTML yang sudah di-upload ke Github tidak mau terbuka (muncul error 404) saat URL-nya diakses via LMS. Berdasarkan proses deployment yang diajarkan, apa langkah evaluasi pertama yang harus Anda cek di repository Github?",
+                q: "(C2) Apa fungsi utama mode 'Canvas' atau 'Artifacts' yang ada pada AI (seperti Gemini/Claude)?",
                 options: [
-                    "A. Memeriksa apakah kode Javascript telah ter-deploy dengan status 'Anyone' di Apps Script.",
-                    "B. Memastikan fitur Advanced Security telah dihidupkan.",
-                    "C. Memeriksa apakah nama file utama sudah di-rename persis menjadi 'index.html'.",
-                    "D. Mengulangi proses prompting di Claude AI karena Gemini mungkin menghapus source code aslinya."
+                    "A. Membuat bahan presentasi PowerPoint secara otomatis.",
+                    "B. Memutar musik latar secara langsung.",
+                    "C. Melihat pratinjau (preview) hasil tampilan kode HTML langsung di dalam AI.",
+                    "D. Menghapus virus dari komputer Anda."
                 ],
-                answer: 2,
-                reason: "Error 404 (Not Found) di Github Pages hampir selalu disebabkan oleh ketiadaan file 'index.html' di root direktori."
+                answer: 2, // C
+                reason: "Mode ini sangat memudahkan karena kita bisa melihat tampilan UI game secara live tanpa perlu repot memindahkannya dulu ke aplikasi lain."
             },
             {
-                q: "(Analisis C4) Anda ingin membuat game simulasi (The Platinum Rule) di mana peserta berperan sebagai SPV yang menangani komplain pelanggan dengan berbagai profil emosi (misal: panik, marah, detail). Mekanik game apa yang direkomendasikan dalam modul untuk melatih refleks kecerdasan emosional ini?",
+                q: "(C1) Saat mempublikasikan sistem di Apps Script (Deploy), hak akses 'Execute as' (Jalankan sebagai) harus diatur menjadi...",
                 options: [
-                    "A. Connect the Dots untuk menghubungkan SOP perusahaan dengan pasal-pasal hukum.",
-                    "B. Dialog Card / Drag & Drop untuk merangkai respons 'Courtesy Heads-Up' yang paling sesuai dengan tempo lawan bicara.",
-                    "C. Pembuatan teka-teki silang (Crossword) tentang jenis-jenis komplain.",
-                    "D. Papan Leaderboard khusus menghitung siapa yang paling banyak mendapat komplain."
+                    "A. User accessing the web app",
+                    "B. Me (Email Pemilik Akun)",
+                    "C. Anyone",
+                    "D. Anonymous"
                 ],
-                answer: 1,
-                reason: "Mekanik ini mensimulasikan percakapan nyata (Roleplay), memaksa pemain menganalisis situasi sebelum merespons."
+                answer: 1, // B
+                reason: "Harus diatur 'Execute as Me' agar skrip memiliki izin menulis ke dalam Sheets milik Anda, meskipun yang main adalah peserta lain."
             },
             {
-                q: "(Analisis C4) Saat melakukan uji coba database gamifikasi ke Google Sheets, Anda mendapati pesan error pada Execution Log di Google Apps Script dan tabel data tidak terisi. Apa penyebab paling logis dari kegagalan integrasi tersebut?",
+                q: "(C3) Anda ingin memberikan penghargaan visual saat peserta berhasil lulus kuis ini. Elemen UI apa yang paling tepat disematkan di layar Debrief?",
                 options: [
-                    "A. Penamaan header di Google Sheets (kolom A, B, C, dst) tidak sama persis (huruf besar/kecilnya) dengan parameter/variabel yang ada di kode Javascript Apps Script.",
-                    "B. Anda tidak menggunakan mode incognito (penyamaran) saat mem-paste Javascript.",
-                    "C. Akun Google yang Anda gunakan untuk GitHub berbeda dengan akun Google Sheets.",
-                    "D. Format HTML Single File tidak mendukung pengiriman data tanpa bantuan server PHP."
+                    "A. Tombol Keluar (Exit)",
+                    "B. Timer yang terus mundur",
+                    "C. Badge (Lencana digital)",
+                    "D. Tabel Data mentah"
                 ],
-                answer: 0,
-                reason: "Mapping data via JSON (key-value pair) bersifat Case Sensitive. Jika keys di script tidak cocok dengan header sheet, data tidak akan terpetakan."
+                answer: 2, // C
+                reason: "Badge bertindak sebagai simbol status atau prestasi yang memotivasi pemain setelah menyelesaikan tantangan/misi."
             },
             {
-                q: "(Evaluasi C5) Dalam merancang Post-Action Debrief, seorang kreator instruksional hanya memberikan notifikasi berbunyi 'Skor Anda 100 - Lulus'. Mengacu pada konsep Gamifikasi 2.0 yang ideal, mengapa hal ini dianggap belum sempurna dan apa yang harus ditambahkan?",
+                q: "(C1) Bagian awal cerita dalam gamifikasi yang berfungsi memancing rasa penasaran (WIIFM) peserta disebut...",
                 options: [
-                    "A. Karena tidak ada elemen kompetisi; harus ditambahkan Leaderboard wajib untuk semua peserta tanpa terkecuali.",
-                    "B. Karena debrief bukan sekadar garis finish; harus ada Analisis Taktis (evaluasi kecepatan/akurasi) dan ajakan (Call to action) untuk mengulang siklus perbaikan.",
-                    "C. Karena kurang meriah; wajib ditambahkan video dan musik selebrasi di akhir sesi.",
-                    "D. Karena tidak sah jika tidak ada fitur tanda tangan digital (e-sign) dari manajer ETD."
+                    "A. The Hook",
+                    "B. The End",
+                    "C. The Bug",
+                    "D. The Script"
                 ],
-                answer: 1,
-                reason: "Debrief yang baik harus actionable. Pemain perlu tahu mengapa mereka menang/kalah dan apa yang harus dilakukan selanjutnya (Call to action)."
+                answer: 0, // A
+                reason: "The Hook atau 'kail' digunakan di Mission Briefing untuk menarik perhatian emosional peserta sejak awal permainan."
             },
             {
-                q: "(Aplikasi C3) Anda telah memproduksi script HTML menggunakan Gemini AI. Namun, saat diuji coba melalui menu 'Preview', Background Music (BGM) tidak menyala. Sesuai dengan modul QC Hasil Gamifikasi, apa langkah troubleshooting paling tepat yang harus Anda lakukan tanpa harus bisa coding manual?",
+                q: "(C2) Apa yang dimaksud dengan 'Repository' di dalam istilah Github?",
                 options: [
-                    "A. Mengonversi audio menjadi format MP4 dan menyematkannya di Github.",
-                    "B. Menghapus Github dan membuat repository baru dari awal.",
-                    "C. Langsung memberikan instruksi perbaikan (chat ulang keluhan tersebut) kepada Gemini di prompt yang sama, atau beralih menggunakan Claude AI sebagai cadangan generator.",
-                    "D. Menambahkan script <bgsound> di awal baris kode menggunakan aplikasi Notepad secara manual."
+                    "A. Aplikasi khusus untuk menggambar aset game.",
+                    "B. Ruang penyimpanan (folder) online untuk menaruh seluruh file proyek web Anda.",
+                    "C. Bahasa pemrograman baru pesaing Javascript.",
+                    "D. Layanan video streaming edukasi."
                 ],
-                answer: 2,
-                reason: "Kemampuan Iterative Prompting adalah skill krusial. Jika kode AI gagal, cara tercepat adalah memberikan pesan error kembali ke AI tersebut di thread yang sama."
+                answer: 1, // B
+                reason: "Analogi termudahnya, Repository adalah folder proyek (workspace) Anda yang tersimpan di server cloud Github."
+            },
+            {
+                q: "(C3) Jika kode Javascript dari AI tidak memutar suara saat ditekan, langkah perbaikan tercepat yang bisa Anda lakukan adalah...",
+                options: [
+                    "A. Mematikan komputer lalu membatalkan proyek.",
+                    "B. Menghapus akun Github dan buat ulang dari nol.",
+                    "C. Mengganti semua desain warna tampilan.",
+                    "D. Mengeluhkan kembali masalah suara (error) tersebut ke AI agar dikoreksi (Iterative Prompting)."
+                ],
+                answer: 3, // D
+                reason: "Kemampuan prompting berkelanjutan sangat penting. Biarkan AI yang mencari dan memperbaiki kesalahannya sendiri."
+            },
+            {
+                q: "(C2) Mengapa penulisan nama kolom/header di Google Sheets harus disamakan huruf besar/kecilnya dengan skrip di Apps Script?",
+                options: [
+                    "A. Agar warna tabel terlihat lebih rapi dan profesional.",
+                    "B. Karena sistem pencocokan data bersifat Case-Sensitive (peka huruf besar-kecil).",
+                    "C. Agar ukuran font membesar secara otomatis.",
+                    "D. Agar file bisa didownload sebagai PDF nantinya."
+                ],
+                answer: 1, // B
+                reason: "Jika ada perbedaan huruf kapital sedikit saja, data dari game tidak akan masuk karena tidak menemukan kolom yang cocok."
+            },
+            {
+                q: "(C1) Setelah kode siap di Github, fitur Github apa yang diaktifkan untuk mengubah file tersebut menjadi link URL (website) publik?",
+                options: [
+                    "A. Github Pages",
+                    "B. Github Desktop",
+                    "C. Github Copilot",
+                    "D. Github Actions"
+                ],
+                answer: 0, // A
+                reason: "Github Pages adalah layanan hosting statis bawaan Github untuk menampilkan file HTML Anda menjadi sebuah website."
+            },
+            {
+                q: "(C3) Jika peserta kebingungan sejauh mana mereka sudah mengerjakan kuis, indikator visual apa yang paling efektif ditambahkan di layar atas?",
+                options: [
+                    "A. Gambar latar yang terang",
+                    "B. Efek animasi hujan",
+                    "C. Pesan peringatan (Pinalti)",
+                    "D. Progress Bar (Bilah Kemajuan)"
+                ],
+                answer: 3, // D
+                reason: "Progress Bar memberikan informasi visual seketika mengenai persentase penyelesaian misi kepada pemain."
+            },
+            {
+                q: "(C2) Sebuah sistem game yang memberikan respons warna atau suara secara seketika begitu tombol ditekan adalah bentuk dari konsep...",
+                options: [
+                    "A. Linear Storytelling",
+                    "B. Server Timeout",
+                    "C. Real-time Feedback",
+                    "D. Static UI"
+                ],
+                answer: 2, // C
+                reason: "Umpan balik seketika (Real-time feedback) memberi tahu otak bahwa tindakan yang dilakukan sistem telah terdaftar dan valid."
+            },
+            {
+                q: "(C1) Pada pengaturan Web App di Google Apps Script, 'Who has access' harus diatur menjadi apa agar link bisa dimainkan oleh publik tanpa login?",
+                options: [
+                    "A. Only myself (Hanya saya)",
+                    "B. Users within the organization",
+                    "C. Google account users only",
+                    "D. Anyone (Siapa saja)"
+                ],
+                answer: 3, // D
+                reason: "Mengubahnya menjadi 'Anyone' memastikan peserta tidak akan ditolak aksesnya (blocked) saat mencoba meng-submit data di akhir game."
+            },
+            {
+                q: "(C3) Saat tautan Github Pages Anda dibuka, layar justru menampilkan tulisan 'Error 404 - File Not Found'. Apa yang harus pertama kali Anda periksa?",
+                options: [
+                    "A. Apakah jaringan internet peserta lambat.",
+                    "B. Apakah baterai perangkat Anda tinggal sedikit.",
+                    "C. Apakah nama file HTML utama Anda di-rename (ubah nama) menjadi 'index.html'.",
+                    "D. Apakah Google Drive sudah kepenuhan memori."
+                ],
+                answer: 2, // C
+                reason: "Error 404 pada Github Pages terjadi jika tidak ada file index.html pada struktur dasar (root) folder Anda."
             }
         ];
 
